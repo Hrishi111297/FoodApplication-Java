@@ -24,9 +24,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Reastaurant {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class Restaurant {
+	  @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 		private long id;
 	@OneToOne
 	private UserData owner;
@@ -47,7 +47,6 @@ private List<Order>orders=new ArrayList<>();
 	private LocalDateTime registrationTime;
 	private boolean open;
 	@JsonIgnore
-	@OneToMany(mappedBy ="reastaurant",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy ="restaurant",cascade = CascadeType.ALL)
 	private List<Food>foods=new ArrayList<>();
-	
 }

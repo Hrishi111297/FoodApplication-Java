@@ -1,5 +1,7 @@
 package com.codewithhrishi.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -10,19 +12,24 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-public class Category {
+public class CartItem {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private long id;
-	private String name;
-	@JsonIgnore
 	@ManyToOne
-	private Restaurant restaurant;
+	@JsonIgnore
+	private Cart cart;
+	@ManyToOne
+	private  Food food;
+	
+	private int quantity;
+	private List< String>ingredients;
+	private long totalPrice;
 	
 	
 }

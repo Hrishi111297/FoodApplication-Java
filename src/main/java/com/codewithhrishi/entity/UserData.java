@@ -10,6 +10,7 @@ import com.codewithhrishi.domain.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,8 +30,7 @@ public class UserData {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
 	private List<Order>orders=new ArrayList<>();
-	@JsonIgnore
-	@OneToMany
+@ElementCollection
 	private List<RestaurantDto>favourites=new ArrayList<>();
 @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Address>adresses=new ArrayList<>();

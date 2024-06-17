@@ -1,14 +1,11 @@
 package com.codewithhrishi.entity;
 
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
+@Embeddable
 public class ContactInformation {
 	private String email;
 	private String mobile;

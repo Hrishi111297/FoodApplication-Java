@@ -12,6 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 
 public class Food {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private long id;
 	private String name;
 	private  String description;
@@ -35,13 +37,14 @@ public class Food {
 	@ElementCollection
 	private List<String>images;
 	private boolean available;
-	
-	private Reastaurant reastaurant;
+    @ManyToOne
+	private Restaurant restaurant;
 	 private boolean isVegiterian;
 	 private boolean isSeasonal;
 	@ManyToMany
 	 private List<IngredientsItems>ingredients=new ArrayList<>();
-	 private Date createdDate;
+    @Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
 	 
 	
 	
