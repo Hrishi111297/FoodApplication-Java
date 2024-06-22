@@ -41,8 +41,7 @@ public class SecurityController {
     private JwtHelper helper;
 
 
-    @Autowired
-    ModelMapper modelMapper;
+  
 
     private Logger logger = LoggerFactory.getLogger(SecurityController.class);
 

@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.codewithhrishi.service.CustomUserDetailService;
+
 
 
 @Configuration
@@ -24,13 +26,13 @@ public class Appconfig {
 	    }
 	 
 	 
-//	 @Autowired
-//CustomUserDetailService customUserDetailService;
+	 @Autowired
+CustomUserDetailService customUserDetailService;
 	 //for the database authentication
 	 @Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
-	//	daoAuthenticationProvider.setUserDetailsService(customUserDetailService);
+		daoAuthenticationProvider.setUserDetailsService(customUserDetailService);
 		daoAuthenticationProvider.setPasswordEncoder(this.bCryptPasswordEncoder());
 		return daoAuthenticationProvider;
 	}

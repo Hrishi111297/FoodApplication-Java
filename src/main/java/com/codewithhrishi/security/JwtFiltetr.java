@@ -52,8 +52,7 @@ public class JwtFiltetr  extends OncePerRequestFilter{
 
                 username = this.jwtHelper.getUsernameFromToken(token);
                 
-                Authentication authentication=new UsernamePasswordAuthenticationToken(username, token, jwtHelper.auth(token));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            
 
             } catch (IllegalArgumentException e) {
                 logger.info("Illegal Argument while fetching the username !!");
@@ -84,7 +83,9 @@ public class JwtFiltetr  extends OncePerRequestFilter{
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
             if (validateToken) {
-            	
+            	  UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                  authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                  SecurityContextHolder.getContext().setAuthentication(authentication);
                     // If token is about to expire, refresh it
                     Date expirationDate = jwtHelper.getExpirationDateFromToken(token);
                     if (expirationDate.before(new Date(System.currentTimeMillis() + 1000 * 60 *1))) { // 30 minutes before expiry
@@ -92,11 +93,6 @@ public class JwtFiltetr  extends OncePerRequestFilter{
                         response.setHeader("Authorization",token);
                         logger.info("Authorization header: " + response.getHeader("Authorization"));
                     }
-                //set the authentication
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-
 
             } else {
                 logger.info("Validation fails !!");

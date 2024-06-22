@@ -74,7 +74,7 @@ public class SecurityConfig {
 	 * this filter is applied early in the filter chain return bean; }
 	 */
     @Bean
-    private CorsConfigurationSource getCorsConfigurationSource() {
+    public CorsConfigurationSource getCorsConfigurationSource() {
     	return new CorsConfigurationSource() {
 			
 			@Override
