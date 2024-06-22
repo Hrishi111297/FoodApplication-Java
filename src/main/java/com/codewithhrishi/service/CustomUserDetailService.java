@@ -21,15 +21,15 @@ public class CustomUserDetailService implements UserDetailsService {
 private	UserDataRepository userDataRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	UserData userData=userDataRepository.findByEmail(username).orElseThrow( ()->new ResourceNotFound("User", "email", username));
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	UserData userData=userDataRepository.findByEmail(email).orElseThrow( ()->new ResourceNotFound("User", "email", email));
 	USER_ROLE role = userData.getRole();
 	if(role==null)
-		   role = USER_ROLE.CUSTOMER;
+		   role = USER_ROLE.ROLE_CUSTOMER;
 	System.out.println("role  ---- "+role);
 	
 	  List<GrantedAuthority> authorities = new ArrayList<>();
-	    authorities.add(new SimpleGrantedAuthority(role.name()));
+	    authorities.add(new SimpleGrantedAuthority(role.toString()));
 	
 	return new org.springframework.security.core.userdetails.User(
 			userData.getEmail(),userData.getPassword(),authorities);

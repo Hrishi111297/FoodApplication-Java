@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @EnableWebMvc
 public class SecurityConfig {
 
-	public static final String[] URL_CONST_FOR_OWNER_ADMIN= {"/api/admin/**"
+	public static final String[] URL_CONST_FOR_OWNER_ADMIN= {"admin/**"
 			};
 	public static final String[] OPEN_REQUEST= {"/auth/**"
 	};
@@ -43,7 +43,7 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable()).cors(cors->cors.configurationSource(getCorsConfigurationSource()))
            .authorizeHttpRequests(auth->auth.requestMatchers(OPEN_REQUEST).permitAll().	   
-        		   requestMatchers(URL_CONST_FOR_OWNER_ADMIN).hasAnyRole("ROLE_RESTAURANT_OWNER","ROLE_ADMIN").requestMatchers("/api/**").authenticated().anyRequest().authenticated()).
+        		   requestMatchers(URL_CONST_FOR_OWNER_ADMIN).hasAnyRole("RESTAURANT_OWNER","ADMIN").requestMatchers("/api/**").authenticated().anyRequest().authenticated()).
                exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);

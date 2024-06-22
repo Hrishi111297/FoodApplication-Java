@@ -1,5 +1,6 @@
 package com.codewithhrishi.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,4 +37,8 @@ CustomUserDetailService customUserDetailService;
 		daoAuthenticationProvider.setPasswordEncoder(this.bCryptPasswordEncoder());
 		return daoAuthenticationProvider;
 	}
+	 @Bean
+	 ModelMapper createmodelMapper() {
+		 return new ModelMapper();
+	 }
 }

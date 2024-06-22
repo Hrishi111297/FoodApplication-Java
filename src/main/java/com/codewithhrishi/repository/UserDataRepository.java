@@ -8,4 +8,5 @@ import com.codewithhrishi.entity.UserData;
 
 public interface UserDataRepository extends JpaRepository<UserData, Long> {
 public Optional<UserData>	 findByEmail(String email);
+public boolean existsByEmail(String email);
 }

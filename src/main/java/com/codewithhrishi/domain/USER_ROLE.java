@@ -1,8 +1,11 @@
 package com.codewithhrishi.domain;
 
 public enum USER_ROLE {
-	 ADMIN,
-	    RESTAURANT_OWNER,
-	    CUSTOMER
+
+    ROLE_CUSTOMER,
+    ROLE_RESTAURANT_OWNER,
+ROLE_RESTAURANT_MANAGER,
+    ROLE_ADMIN
+
 	
 }
