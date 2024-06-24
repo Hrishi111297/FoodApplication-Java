@@ -21,7 +21,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtHelper {
 
     //requirement : 5hours
-    public static final long JWT_TOKEN_VALIDITY = 1* 60 ;
+    public static final long JWT_TOKEN_VALIDITY = 30* 60 ;
 
     //    public static final long JWT_TOKEN_VALIDITY =  60;
     private String secret = "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf";
@@ -82,7 +82,7 @@ public class JwtHelper {
     public String refreshToken(String token) {
         final Claims claims = getAllClaimsFromToken(token);
         claims.setIssuedAt(new Date());
-        claims.setExpiration(new Date(System.currentTimeMillis() + 1*60*1000L)); // 2 minutes from current time
+        claims.setExpiration(new Date(System.currentTimeMillis() + 5*60*1000L)); // 2 minutes from current time
 
         return Jwts.builder()
                 .setClaims(claims)

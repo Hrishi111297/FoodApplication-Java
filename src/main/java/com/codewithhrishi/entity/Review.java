@@ -1,5 +1,7 @@
 package com.codewithhrishi.entity;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -12,19 +14,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class IngredientsItems {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-		private long id;
-	private String name;
-	@ManyToOne
-	private IngredientsCategory category;
-	@JsonIgnore
-	@ManyToOne
-	private Restaurant restaurant;
-	private boolean inStock=true;
-	
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private UserData customer;
+
+    @ManyToOne
+    @JsonIgnore
+    private Restaurant restaurant;
+    
+    private String message;
+    
+    private double rating;
+
+    private LocalDateTime createdAt;
+    
+   
 }
+

@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @EnableWebMvc
 public class SecurityConfig {
 
-	public static final String[] URL_CONST_FOR_OWNER_ADMIN= {"admin/**"
+	public static final String[] URL_CONST_FOR_OWNER_ADMIN= {"/api/admin/**"
 			};
 	public static final String[] OPEN_REQUEST= {"/auth/**"
 	};

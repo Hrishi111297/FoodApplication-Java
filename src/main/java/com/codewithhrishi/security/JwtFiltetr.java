@@ -88,7 +88,7 @@ public class JwtFiltetr  extends OncePerRequestFilter{
                   SecurityContextHolder.getContext().setAuthentication(authentication);
                     // If token is about to expire, refresh it
                     Date expirationDate = jwtHelper.getExpirationDateFromToken(token);
-                    if (expirationDate.before(new Date(System.currentTimeMillis() + 1000 * 60 *1))) { // 30 minutes before expiry
+                    if (expirationDate.before(new Date(System.currentTimeMillis() + 1000 * 60 *3))) { // 30 minutes before expiry
                         token = jwtHelper.refreshToken(token);
                         response.setHeader("Authorization",token);
                         logger.info("Authorization header: " + response.getHeader("Authorization"));
