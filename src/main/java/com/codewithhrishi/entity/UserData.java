@@ -3,13 +3,10 @@ package com.codewithhrishi.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import com.codewithhrishi.DTO.RestaurantDto;
 import com.codewithhrishi.domain.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
@@ -40,5 +37,5 @@ private USER_ROLE role;
 	private List<RestaurantDto>favourites=new ArrayList<>();
 @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Address>adresses=new ArrayList<>();
-
+private String status;
 }

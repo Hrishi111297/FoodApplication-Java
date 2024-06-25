@@ -5,7 +5,7 @@ package com.codewithhrishi.request;
 import java.util.List;
 
 import com.codewithhrishi.entity.Category;
-import com.codewithhrishi.entity.IngredientsItems;
+import com.codewithhrishi.entity.IngredientsItem;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +33,7 @@ public class CreateFoodRequest {
     private boolean seasonal;
     
     
-    private List<IngredientsItems> ingredients;
+    private List<IngredientsItem> ingredients;
 	
 
 }

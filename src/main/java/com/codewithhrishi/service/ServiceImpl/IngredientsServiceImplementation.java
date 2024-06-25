@@ -1,4 +1,4 @@
-package com.codewithhrishi.service;
+package com.codewithhrishi.service.ServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.codewithhrishi.entity.IngredientsCategory;
-import com.codewithhrishi.entity.IngredientsItems;
+import com.codewithhrishi.entity.IngredientCategory;
+import com.codewithhrishi.entity.IngredientsItem;
 import com.codewithhrishi.entity.Restaurant;
 import com.codewithhrishi.exception.RestaurantException;
 import com.codewithhrishi.repository.IngredientsCategoryRepository;
 import com.codewithhrishi.repository.IngredientsItemRepository;
+import com.codewithhrishi.service.IngredientsService;
+import com.codewithhrishi.service.RestaurantService;
 
 @Service
 public class IngredientsServiceImplementation implements IngredientsService {
@@ -28,10 +30,10 @@ public class IngredientsServiceImplementation implements IngredientsService {
 	private RestaurantService restaurantService;
 	
 	@Override
-	public IngredientsCategory createIngredientsCategory(
+	public IngredientCategory createIngredientsCategory(
 			String name,Long restaurantId) throws RestaurantException {
 		
-		IngredientsCategory isExist=ingredientsCategoryRepo
+		IngredientCategory isExist=ingredientsCategoryRepo
 				.findByRestaurantIdAndNameIgnoreCase(restaurantId,name);
 		
 		if(isExist!=null) {
@@ -40,18 +42,18 @@ public class IngredientsServiceImplementation implements IngredientsService {
 
 		Restaurant restaurant=restaurantService.findRestaurantById(restaurantId);
 		
-		IngredientsCategory ingredientCategory=new IngredientsCategory();
+		IngredientCategory ingredientCategory=new IngredientCategory();
 		ingredientCategory.setRestaurant(restaurant);
 		ingredientCategory.setName(name);
 		
-		IngredientsCategory createdCategory = ingredientsCategoryRepo.save(ingredientCategory);
+		IngredientCategory createdCategory = ingredientsCategoryRepo.save(ingredientCategory);
 		
 		return createdCategory;
 	}
 
 	@Override
-	public IngredientsCategory findIngredientsCategoryById(Long id) throws Exception {
-		Optional<IngredientsCategory> opt=ingredientsCategoryRepo.findById(id);
+	public IngredientCategory findIngredientsCategoryById(Long id) throws Exception {
+		Optional<IngredientCategory> opt=ingredientsCategoryRepo.findById(id);
 		if(opt.isEmpty()){
 			throw new Exception("ingredient category not found");
 		}
@@ -59,24 +61,24 @@ public class IngredientsServiceImplementation implements IngredientsService {
 	}
 
 	@Override
-	public List<IngredientsCategory> findIngredientsCategoryByRestaurantId(Long id) throws Exception {
+	public List<IngredientCategory> findIngredientsCategoryByRestaurantId(Long id) throws Exception {
 		return ingredientsCategoryRepo.findByRestaurantId(id);
 	}
 
 	@Override
-	public List<IngredientsItems> findRestaurantsIngredients(Long restaurantId) {
+	public List<IngredientsItem> findRestaurantsIngredients(Long restaurantId) {
 
 		return ingredientsItemRepository.findByRestaurantId(restaurantId);
 	}
 	
 
 	@Override
-	public IngredientsItems createIngredientsItem(Long restaurantId, 
+	public IngredientsItem createIngredientsItem(Long restaurantId, 
 			String ingredientName, Long ingredientCategoryId) throws Exception {
 		
-		IngredientsCategory category = findIngredientsCategoryById(ingredientCategoryId);
+		IngredientCategory category = findIngredientsCategoryById(ingredientCategoryId);
 		
-		IngredientsItems isExist = ingredientsItemRepository.
+		IngredientsItem isExist = ingredientsItemRepository.
 				findByRestaurantIdAndNameIngoreCase(restaurantId, ingredientName,category.getName());
 		if(isExist!=null) {
 			System.out.println("is exists-------- item");
@@ -85,26 +87,26 @@ public class IngredientsServiceImplementation implements IngredientsService {
 		
 		Restaurant restaurant=restaurantService.findRestaurantById(
 				restaurantId);
-		IngredientsItems item=new IngredientsItems();
+		IngredientsItem item=new IngredientsItem();
 		item.setName(ingredientName);
 		item.setRestaurant(restaurant);
 		item.setCategory(category);
 		
-		IngredientsItems savedIngredients = ingredientsItemRepository.save(item);
-		category.getIngredientsItems().add(savedIngredients);
+		IngredientsItem savedIngredients = ingredientsItemRepository.save(item);
+		category.getIngredients().add(savedIngredients);
 
 		return savedIngredients;
 	}
 
 
 	@Override
-	public IngredientsItems updateStoke(Long id) throws Exception {
-		Optional<IngredientsItems> item=ingredientsItemRepository.findById(id);
+	public IngredientsItem updateStoke(Long id) throws Exception {
+		Optional<IngredientsItem> item=ingredientsItemRepository.findById(id);
 		if(item.isEmpty()) {
 			throw new Exception("ingredient not found with id "+item);
 		}
-		IngredientsItems ingredient=item.get();
-		ingredient.setInStock(!ingredient.isInStock());
+		IngredientsItem ingredient=item.get();
+		ingredient.setInStoke(!ingredient.isInStoke());
 		return ingredientsItemRepository.save(ingredient);
 	}
 

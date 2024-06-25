@@ -42,7 +42,7 @@ public class Food {
 	 private boolean isVegiterian;
 	 private boolean isSeasonal;
 	@ManyToMany
-	 private List<IngredientsItems>ingredients=new ArrayList<>();
+	 private List<IngredientsItem>ingredients=new ArrayList<>();
     @Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 	 
